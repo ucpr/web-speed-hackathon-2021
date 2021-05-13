@@ -3,6 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const webpack = require('webpack');
 
@@ -68,10 +69,11 @@ const config = {
       COMMIT_HASH: process.env.SOURCE_VERSION || '',
       NODE_ENV: 'development',
     }),
-    new TerserPlugin(),
     new MiniCssExtractPlugin({
       filename: 'styles/[name].css',
     }),
+    new TerserPlugin(),
+    new OptimizeCSSAssetsPlugin(),
     new HtmlWebpackPlugin({
       inject: false,
       template: path.resolve(SRC_PATH, './index.html'),
